@@ -70,6 +70,9 @@ _start:
 	; aligned above and we've since pushed a multiple of 16 bytes to the
 	; stack since (pushed 0 bytes so far) and the alignment is thus
 	; preserved and the call is well defined.
+	extern _init
+	call _init
+	
 	extern kernel_main
 	call kernel_main
  
@@ -83,6 +86,8 @@ _start:
 	;    Since they are disabled, this will lock up the computer.
 	; 3) Jump to the hlt instruction if it ever wakes up due to a
 	;    non-maskable interrupt occurring or due to system management mode.
+	extern _fini
+	call _fini
 	cli
 .hang:	hlt
 	jmp .hang
