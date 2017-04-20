@@ -1,1 +1,1 @@
-set -x PATH $PATH /home/mgrumic/opt/cross/bin
+export PATH=$PATH:/home/mgrumic/opt/cross/bin

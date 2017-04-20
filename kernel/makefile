@@ -1,7 +1,10 @@
 OBJS:=boot.o kernel.o
 
+ARCH ?=
+CROSS_COMPILE ?=
+
 CFLAGS:=
-CC:=i686-elf-gcc
+CC:=$(CROSS_COMPILE)gcc
 
 CRTI_OBJ=crti.o
 CRTBEGIN_OBJ:=$(shell $(CC) $(CFLAGS) -print-file-name=crtbegin.o)
@@ -19,7 +22,6 @@ INTERNAL_OBJS=$(CRTI_OBJ) $(OBJS) $(CRTN_OBJ)
 
 all: $(INTERNAL_OBJS)
 	$(CC) -T linker.ld -o myos.bin $(OBJ_LINK_LIST) -ffreestanding -O2 -nostdlib -lgcc
-	qemu-system-i386 -kernel myos.bin
 
 clean:
 	rm -f myos.bin $(INTERNAL_OBJS)
